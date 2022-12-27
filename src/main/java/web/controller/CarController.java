@@ -13,13 +13,10 @@ import java.util.List;
 public class CarController {
 
     @GetMapping("cars")
-    public String showCars(@RequestParam(value = "count", required = false) Integer count, Model model) {
-        List<Car> cars;
-        if (count != null) {
-            cars = CarService.getNCars(count);
-        } else {
-            cars = CarService.getNCars(Integer.MAX_VALUE);
-        }
+    public String showCars(
+            @RequestParam(value = "count", required = false, defaultValue = "0x7fffffff") Integer count,
+            Model model) {
+        List<Car> cars = CarService.getNCars(count);
         model.addAttribute("cars", cars);
         return "cars";
     }
